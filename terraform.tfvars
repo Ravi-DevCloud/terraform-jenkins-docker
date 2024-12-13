@@ -1,0 +1,9 @@
+aws_region = "us-east-1"
+instance_type = "t2.micro"
+instance_ami_id = "ami-0e2c8caa4b6378d8c"
+ebs_availability_zone = "us-east-1a"
+ebs_volume_size = 10
+availability_zone = "us-east-1a"
+vpc_cidr_block = "10.0.0.0/16"
+subnet_cidr_block = "10.0.0.0/24"
+protocol = "tcp"
