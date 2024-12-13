@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  authentik:
+    image: ghcr.io/goauthentik/server:latest
+    container_name: authentik
+    environment:
+      - DATABASE_URL=postgres://authentik:password@postgresql:5432/authentik
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgresql
+    restart: always
+
+  postgresql:
+    image: postgres:13
+    container_name: postgresql
+    environment:
+      - POSTGRES_DB=authentik
+      - POSTGRES_USER=authentik
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres_data: {}
+
