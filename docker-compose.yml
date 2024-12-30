@@ -1,28 +1,17 @@
-version: '3.8'
+version: '3'
 
 services:
-  authentik:
-    image: ghcr.io/goauthentik/server:latest
-    container_name: authentik
-    environment:
-      - DATABASE_URL=postgres://authentik:password@postgresql:5432/authentik
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
     ports:
-      - "8000:8000"
-    depends_on:
-      - postgresql
-    restart: always
-
-  postgresql:
-    image: postgres:13
-    container_name: postgresql
-    environment:
-      - POSTGRES_DB=authentik
-      - POSTGRES_USER=authentik
-      - POSTGRES_PASSWORD=password
+      - "8080:8080"
+      - "50000:50000"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    restart: always
+      - jenkins_home:/var/jenkins_home
+    environment:
+      - JENKINS_OPTS=--prefix=/jenkins
 
 volumes:
-  postgres_data: {}
-
+  jenkins_home:
+    driver: local
